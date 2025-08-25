@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 interface Product {
   id: number;
@@ -33,12 +34,17 @@ const ProductCard = ({
   onAddToWishlist,
   onBuyNow 
 }: ProductCardProps) => {
+  const { toast } = useToast();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleWishlistClick = () => {
     setIsWishlisted(!isWishlisted);
     onAddToWishlist?.(product);
+    toast({
+      title: isWishlisted ? "Removed from Wishlist" : "Added to Wishlist",
+      description: `${product.title} has been ${isWishlisted ? "removed from" : "added to"} your wishlist.`,
+    });
   };
 
   const displayPrice = isFlashSale && flashSalePrice ? flashSalePrice : product.price;
@@ -137,7 +143,13 @@ const ProductCard = ({
               variant="cart"
               size="sm"
               className="flex-1"
-              onClick={() => onAddToCart?.(product)}
+              onClick={() => {
+                onAddToCart?.(product);
+                toast({
+                  title: "Added to Cart",
+                  description: `${product.title} has been added to your cart.`,
+                });
+              }}
             >
               <ShoppingCart className="h-4 w-4" />
               Add to Cart

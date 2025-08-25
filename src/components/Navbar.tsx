@@ -3,6 +3,7 @@ import { Search, ShoppingCart, Heart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavbarProps {
   cartCount?: number;
@@ -56,6 +57,8 @@ const Navbar = ({ cartCount = 0, wishlistCount = 0, onSearch }: NavbarProps) => 
 
           {/* Navigation Icons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
+            
             <Button variant="ghost" size="icon" className="relative">
               <Heart className="h-5 w-5" />
               {wishlistCount > 0 && (
@@ -118,6 +121,10 @@ const Navbar = ({ cartCount = 0, wishlistCount = 0, onSearch }: NavbarProps) => 
 
           {/* Mobile Navigation */}
           <div className="flex justify-around items-center">
+            <div className="flex justify-center">
+              <ThemeToggle />
+            </div>
+            
             <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 relative">
               <Heart className="h-5 w-5" />
               <span className="text-xs">Wishlist</span>
