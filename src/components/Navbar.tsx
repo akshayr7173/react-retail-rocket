@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Search, ShoppingCart, Heart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 
@@ -59,27 +61,96 @@ const Navbar = ({ cartCount = 0, wishlistCount = 0, onSearch }: NavbarProps) => 
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             
-            <Button variant="ghost" size="icon" className="relative">
-              <Heart className="h-5 w-5" />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-flash-sale text-flash-sale-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                  {wishlistCount}
-                </span>
-              )}
-            </Button>
+            {/* Wishlist Sheet */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  <Heart className="h-5 w-5" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-flash-sale text-flash-sale-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>My Wishlist</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8">
+                  <div className="text-center text-muted-foreground py-8">
+                    <Heart className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>Your wishlist is empty</p>
+                    <p className="text-sm">Save items you love for later!</p>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
             
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
+            {/* Cart Sheet */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>Shopping Cart</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8">
+                  <div className="text-center text-muted-foreground py-8">
+                    <ShoppingCart className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>Your cart is empty</p>
+                    <p className="text-sm">Add some products to get started!</p>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
             
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
+            {/* Profile Sheet */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>My Account</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8 space-y-6">
+                  <div className="space-y-4">
+                    <Button variant="outline" className="w-full justify-start">
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      My Orders
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <User className="h-4 w-4 mr-2" />
+                      Personal Information
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Heart className="h-4 w-4 mr-2" />
+                      Coupons
+                    </Button>
+                  </div>
+                  <Separator />
+                  <div className="space-y-4">
+                    <Button variant="outline" className="w-full">
+                      Sign In
+                    </Button>
+                    <Button variant="default" className="w-full">
+                      Register
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
 
           {/* Mobile Menu Button */}
@@ -125,30 +196,99 @@ const Navbar = ({ cartCount = 0, wishlistCount = 0, onSearch }: NavbarProps) => 
               <ThemeToggle />
             </div>
             
-            <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 relative">
-              <Heart className="h-5 w-5" />
-              <span className="text-xs">Wishlist</span>
-              {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-flash-sale text-flash-sale-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium">
-                  {wishlistCount}
-                </span>
-              )}
-            </Button>
+            {/* Mobile Wishlist */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 relative">
+                  <Heart className="h-5 w-5" />
+                  <span className="text-xs">Wishlist</span>
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-flash-sale text-flash-sale-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>My Wishlist</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8">
+                  <div className="text-center text-muted-foreground py-8">
+                    <Heart className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>Your wishlist is empty</p>
+                    <p className="text-sm">Save items you love for later!</p>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
             
-            <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="text-xs">Cart</span>
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
+            {/* Mobile Cart */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  <span className="text-xs">Cart</span>
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>Shopping Cart</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8">
+                  <div className="text-center text-muted-foreground py-8">
+                    <ShoppingCart className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>Your cart is empty</p>
+                    <p className="text-sm">Add some products to get started!</p>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
             
-            <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1">
-              <User className="h-5 w-5" />
-              <span className="text-xs">Account</span>
-            </Button>
+            {/* Mobile Profile */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1">
+                  <User className="h-5 w-5" />
+                  <span className="text-xs">Account</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>My Account</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8 space-y-6">
+                  <div className="space-y-4">
+                    <Button variant="outline" className="w-full justify-start">
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      My Orders
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <User className="h-4 w-4 mr-2" />
+                      Personal Information
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Heart className="h-4 w-4 mr-2" />
+                      Coupons
+                    </Button>
+                  </div>
+                  <Separator />
+                  <div className="space-y-4">
+                    <Button variant="outline" className="w-full">
+                      Sign In
+                    </Button>
+                    <Button variant="default" className="w-full">
+                      Register
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
