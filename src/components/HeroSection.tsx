@@ -5,7 +5,7 @@ const HeroSection = () => {
   return (
     <section className="relative bg-gradient-hero py-16 px-4 overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      <div className="absolute inset-0 bg-muted/5" />
       
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center space-y-8">
